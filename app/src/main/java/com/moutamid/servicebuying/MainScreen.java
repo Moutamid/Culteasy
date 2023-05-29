@@ -45,7 +45,7 @@ public class MainScreen extends AppCompatActivity {
             }
         });
         FirebaseUser firebaseUser = Constants.auth().getCurrentUser();
-        FirebaseMessaging.getInstance().subscribeToTopic(firebaseUser.getUid());
+        FirebaseMessaging.getInstance().subscribeToTopic("admin");
         /*FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull Task<String> task) {
@@ -63,4 +63,9 @@ public class MainScreen extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

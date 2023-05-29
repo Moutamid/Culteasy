@@ -84,18 +84,42 @@
                         android:textColor="@color/black"
                         android:layout_marginTop="10dp"/>
 
-                    <EditText
-                        android:id="@+id/password"
-                        android:background="@drawable/input"
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="8dp"
+                        android:orientation="horizontal"
+                        android:id="@+id/pass_layout"
                         android:layout_marginTop="10dp"
-                        android:drawableRight="@drawable/cusom_lock"
-                        android:gravity="left"
-                        android:inputType="textPassword"
-                        android:hint="Password" />
+                        android:gravity="center"
+                        android:clickable="true"
+                        style="@style/btn_stand"
+                        android:focusable="true"
+                        android:background="@drawable/cusom_input_layout">
 
+                        <EditText
+                            android:id="@+id/password"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPassword"
+                            android:padding="8dp"
+                            android:background="@android:color/transparent"
+                            android:hint="Password" />
+
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/cusom_lock"
+                            android:id="@+id/showPassword"
+                            android:padding="8dp"
+                            android:onClick="ShowHidePass"/>
+                    </LinearLayout>
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:layout_width="match_parent"

@@ -6,8 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -52,8 +55,7 @@ public class SignUpActivity extends AppCompatActivity {
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
                 finish();
             }
         });
@@ -65,6 +67,22 @@ public class SignUpActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    public void ShowHidePass(View view) {
+
+        if(view.getId()==R.id.showPassword){
+            if(binding.password.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())){
+                ((ImageView)(view)).setImageResource(R.drawable.cusom_unhide_lock);
+                //Show Password
+                binding.password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            }
+            else{
+                ((ImageView)(view)).setImageResource(R.drawable.cusom_lock);
+                //Hide Password
+                binding.password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            }
+        }
     }
 
     private void registerUser() {

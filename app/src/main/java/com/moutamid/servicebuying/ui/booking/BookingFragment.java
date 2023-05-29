@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -17,22 +18,26 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.moutamid.servicebuying.R;
 import com.moutamid.servicebuying.adapter.BookingListAdapter;
 import com.moutamid.servicebuying.model.Request;
 import com.moutamid.servicebuying.utils.Constants;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class BookingFragment extends Fragment {
 
     private com.moutamid.servicebuying.databinding.FragmentBookingBinding binding;
     private ArrayList<Request> requestArrayList;
+    private RecyclerView recyclerView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = com.moutamid.servicebuying.databinding.FragmentBookingBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        recyclerView = root.findViewById(R.id.recyclerview);
         requestArrayList = new ArrayList<>();
         getBookingData();
 
@@ -52,9 +57,9 @@ public class BookingFragment extends Fragment {
                         Request model = ds.getValue(Request.class);
                         requestArrayList.add(model);
                     }
-
+                    Collections.reverse(requestArrayList);
                     BookingListAdapter adapter = new BookingListAdapter(getActivity(),requestArrayList);
-                    binding.recyclerview.setAdapter(adapter);
+                    recyclerView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
                 }
             }

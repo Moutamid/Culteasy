@@ -43,7 +43,7 @@ public class SelectedCategoryScreen extends AppCompatActivity {
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SelectedCategoryScreen.this, MainScreen.class));
+          //      startActivity(new Intent(SelectedCategoryScreen.this, MainScreen.class));
                 finish();
             }
         });

@@ -14,7 +14,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:orientation="horizontal"
-        android:id="@+id/toolbar">
+        android:id="@+id/toolbar"
+        android:layout_marginTop="10dp">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -62,7 +63,7 @@
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="150dp"
+            android:layout_height="120dp"
             android:id="@+id/image"
             android:layout_centerHorizontal="true"
             android:src="@drawable/agriculture"/>

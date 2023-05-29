@@ -34,9 +34,9 @@ public class SubSelectedCategoryScreen extends AppCompatActivity {
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SubSelectedCategoryScreen.this, SelectedCategoryScreen.class);
-                intent.putExtra("category",category);
-                startActivity(intent);
+               // Intent intent = new Intent(SubSelectedCategoryScreen.this, SelectedCategoryScreen.class);
+             //   intent.putExtra("category",category);
+           //     startActivity(intent);
                 finish();
             }
         });

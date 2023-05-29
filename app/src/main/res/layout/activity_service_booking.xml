@@ -86,7 +86,7 @@
                         android:drawableRight="@drawable/cusom_phone"
                         android:gravity="left"
                         android:background="@drawable/input"
-                        android:inputType="textPersonName"
+                        android:inputType="phone"
                         android:padding="8dp" />
 
                     <TextView

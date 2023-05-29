@@ -1,7 +1,9 @@
 <resources>
-    <string name="app_name">ServiceBuying</string>
+    <string name="app_name">Culteasy</string>
     <string name="title_activity_main_screen">MainScreen</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Booking</string>
     <string name="title_notifications">Profile</string>
+    <string name="welcome_txt">Let us help you cultivate success on your farm, with our expert farming services and solutions.</string>
+    <string name="welcome_head">From seed to harvest, we\'ve got you covered.</string>
 </resources>
