@@ -10,6 +10,7 @@ import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -67,22 +68,34 @@ public class SignUpActivity extends AppCompatActivity {
                 finish();
             }
         });
+        binding.password.setOnTouchListener(new DrawableClickListener.RightDrawableClickListener(binding.password) {
+            @Override
+            public boolean onDrawableClick() {
+                ShowHidePass(binding.password);
+                return false;
+            }
+        });
+
     }
 
-    public void ShowHidePass(View view) {
 
-        if(view.getId()==R.id.showPassword){
-            if(binding.password.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())){
-                ((ImageView)(view)).setImageResource(R.drawable.cusom_unhide_lock);
-                //Show Password
-                binding.password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-            }
-            else{
-                ((ImageView)(view)).setImageResource(R.drawable.cusom_lock);
-                //Hide Password
-                binding.password.setTransformationMethod(PasswordTransformationMethod.getInstance());
-            }
+    public void ShowHidePass(EditText password) {
+
+        //if(view.getId()==R.id.showPassword){
+        if(binding.password.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())){
+            //((ImageView)(view)).setImageResource(R.drawable.cusom_unhide_lock);
+            password.setCompoundDrawablesWithIntrinsicBounds(null,null,getDrawable(R.drawable.cusom_unhide_lock),null);
+            //Show Password
+            binding.password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
         }
+        else{
+            password.setCompoundDrawablesWithIntrinsicBounds(null,null,getDrawable(R.drawable.cusom_lock),null);
+
+            //   ((ImageView)(view)).setImageResource(R.drawable.cusom_lock);
+            //Hide Password
+            binding.password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        }
+        //}
     }
 
     private void registerUser() {

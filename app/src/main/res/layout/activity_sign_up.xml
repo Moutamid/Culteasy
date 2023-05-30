@@ -122,39 +122,18 @@
                         android:textColor="@color/black"
                         android:layout_marginTop="10dp"/>
 
-                    <LinearLayout
+
+                    <EditText
+                        android:id="@+id/password"
+                        android:background="@drawable/input"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="8dp"
-                        android:gravity="center"
                         android:layout_marginTop="10dp"
-                        android:clickable="true"
-                        android:focusable="true"
-                        style="@style/btn_stand"
-                        android:background="@drawable/cusom_input_layout">
-
-                        <EditText
-                            android:id="@+id/password"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:inputType="textPassword"
-                            android:background="@android:color/transparent"
-                            android:hint="Password" />
-
-
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"/>
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/cusom_lock"
-                            android:id="@+id/showPassword"
-                            android:onClick="ShowHidePass"/>
-                    </LinearLayout>
+                        android:drawableRight="@drawable/cusom_lock"
+                        android:gravity="left"
+                        android:hint="Enter Password"
+                        android:inputType="textPassword"
+                        android:padding="8dp" />
 
 
                     <androidx.appcompat.widget.AppCompatButton

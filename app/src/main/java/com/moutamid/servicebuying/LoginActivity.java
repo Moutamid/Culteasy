@@ -10,6 +10,7 @@ import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -21,7 +22,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.moutamid.servicebuying.databinding.ActivityLoginBinding;
-import com.moutamid.servicebuying.databinding.ActivityWelcomeScreenBinding;
 import com.moutamid.servicebuying.utils.Constants;
 
 public class LoginActivity extends AppCompatActivity {
@@ -66,24 +66,34 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         });
+        binding.password.setOnTouchListener(new DrawableClickListener.RightDrawableClickListener(binding.password) {
+            @Override
+            public boolean onDrawableClick() {
+                ShowHidePass(binding.password);
+                return false;
+            }
+        });
 
     }
 
 
-    public void ShowHidePass(View view) {
+    public void ShowHidePass(EditText password) {
 
-        if(view.getId()==R.id.showPassword){
+        //if(view.getId()==R.id.showPassword){
             if(binding.password.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())){
-                ((ImageView)(view)).setImageResource(R.drawable.cusom_unhide_lock);
+                //((ImageView)(view)).setImageResource(R.drawable.cusom_unhide_lock);
+                password.setCompoundDrawablesWithIntrinsicBounds(null,null,getDrawable(R.drawable.cusom_unhide_lock),null);
                 //Show Password
                 binding.password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
             }
             else{
-                ((ImageView)(view)).setImageResource(R.drawable.cusom_lock);
+                password.setCompoundDrawablesWithIntrinsicBounds(null,null,getDrawable(R.drawable.cusom_lock),null);
+
+                //   ((ImageView)(view)).setImageResource(R.drawable.cusom_lock);
                 //Hide Password
                 binding.password.setTransformationMethod(PasswordTransformationMethod.getInstance());
             }
-        }
+        //}
     }
 
     private void LoginUser() {
