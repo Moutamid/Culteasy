@@ -45,7 +45,7 @@ public class MainScreen extends AppCompatActivity {
             }
         });
         FirebaseUser firebaseUser = Constants.auth().getCurrentUser();
-        FirebaseMessaging.getInstance().subscribeToTopic("admin");
+        FirebaseMessaging.getInstance().subscribeToTopic(firebaseUser.getUid());
         /*FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull Task<String> task) {
@@ -59,6 +59,7 @@ public class MainScreen extends AppCompatActivity {
                 // Toast.makeText(DashBoard.this,token,Toast.LENGTH_LONG).show();
             }
         });*/
+
 
     }
 
