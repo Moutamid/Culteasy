@@ -3,12 +3,16 @@ package com.moutamid.servicebuying;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
+import com.moutamid.servicebuying.Notifications.Token;
 import com.moutamid.servicebuying.databinding.ActivityMainScreenBinding;
 import com.moutamid.servicebuying.ui.booking.BookingFragment;
 import com.moutamid.servicebuying.ui.home.HomeFragment;
@@ -44,9 +48,9 @@ public class MainScreen extends AppCompatActivity {
                 }
             }
         });
-        FirebaseUser firebaseUser = Constants.auth().getCurrentUser();
-        FirebaseMessaging.getInstance().subscribeToTopic(firebaseUser.getUid());
-        /*FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+    //    FirebaseUser firebaseUser = Constants.auth().getCurrentUser();
+  //      FirebaseMessaging.getInstance().subscribeToTopic(firebaseUser.getUid());
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull Task<String> task) {
                 if(!task.isSuccessful()){
@@ -58,9 +62,17 @@ public class MainScreen extends AppCompatActivity {
                 updatetoken(token);
                 // Toast.makeText(DashBoard.this,token,Toast.LENGTH_LONG).show();
             }
-        });*/
+        });
 
 
+    }
+
+    private void updatetoken(String token) {
+        FirebaseUser firebaseUser = Constants.auth().getCurrentUser();
+
+        DatabaseReference db = Constants.databaseReference().child("Tokens");
+        Token uToken = new Token(token);
+        db.child(firebaseUser.getUid()).setValue(uToken);
     }
 
 

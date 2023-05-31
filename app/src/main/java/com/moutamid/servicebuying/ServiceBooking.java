@@ -16,14 +16,24 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.moutamid.servicebuying.Notifications.FcmNotificationsSender;
+import com.moutamid.servicebuying.Notifications.APIService;
+import com.moutamid.servicebuying.Notifications.Client;
+import com.moutamid.servicebuying.Notifications.Data;
+import com.moutamid.servicebuying.Notifications.MyResponse;
+import com.moutamid.servicebuying.Notifications.Sender;
+import com.moutamid.servicebuying.Notifications.Token;
 import com.moutamid.servicebuying.databinding.ActivityServiceBookingBinding;
 import com.moutamid.servicebuying.model.Users;
 import com.moutamid.servicebuying.utils.Constants;
 
 import java.util.Calendar;
 import java.util.HashMap;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ServiceBooking extends AppCompatActivity {
 
@@ -33,6 +43,7 @@ public class ServiceBooking extends AppCompatActivity {
     String phone,location,date, time = "";
     ProgressDialog pd;
     private String username = "";
+    private APIService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +54,8 @@ public class ServiceBooking extends AppCompatActivity {
         name = getIntent().getStringExtra("title");
         id = getIntent().getStringExtra("id");
         binding.name.setText(name);
+
+        apiService = Client.getRetrofit("https://fcm.googleapis.com/").create(APIService.class);
 
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,15 +157,15 @@ public class ServiceBooking extends AppCompatActivity {
         finish();
     }
 
-    private void sendNotification(String topic, String title, String desp) {
+  /*  private void sendNotification(String topic, String title, String desp) {
         new FcmNotificationsSender(
                 "/topics/" + topic,                title,
                 desp,                getApplicationContext(),
                 ServiceBooking.this)                .SendNotifications();
-    }
+    }*/
 
 
-   /* private void sendNotification(String uId) {
+    private void sendNotification(String uId, String title, String content) {
         DatabaseReference tokens = Constants.databaseReference().child("Tokens");
         FirebaseUser user = Constants.auth().getCurrentUser();
         Query query = tokens.orderByKey().equalTo(uId);
@@ -163,8 +176,8 @@ public class ServiceBooking extends AppCompatActivity {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Token token = snapshot.getValue(Token.class);
 
-                    Data data = new Data(user.getUid(), R.mipmap.ic_launcher, "You have new Request..",
-                            "New Request",uId);
+                    Data data = new Data(user.getUid(), R.mipmap.ic_launcher, content,
+                            title,uId);
 
                     Sender sender = new Sender(data, token.getToken());
 
@@ -195,7 +208,7 @@ public class ServiceBooking extends AppCompatActivity {
         });
 
 
-    }*/
+    }
 
 
     public boolean validInfo() {
