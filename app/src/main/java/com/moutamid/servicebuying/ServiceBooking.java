@@ -151,8 +151,7 @@ public class ServiceBooking extends AppCompatActivity {
         db.child(id).updateChildren(hashMap);
         sendNotification("admin","New Request","You have a new request from " + location +" for "+ name +" service on "+ date+"/"+time);
         pd.dismiss();
-        Intent intent = new Intent(ServiceBooking.this, MainScreen.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        Intent intent = new Intent(ServiceBooking.this, ThankYouScreen.class);
         startActivity(intent);
         finish();
     }

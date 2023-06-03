@@ -18,7 +18,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ServiceBuying"
         tools:targetApi="31">
-
+        <activity
+            android:name=".ThankYouScreen"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".EditProfile"
             android:exported="false">
@@ -82,7 +88,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
 
         <service
             android:name=".Notifications.MyFirebaseMessaging"

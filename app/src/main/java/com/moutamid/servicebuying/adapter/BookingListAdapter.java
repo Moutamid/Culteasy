@@ -53,11 +53,18 @@ public class BookingListAdapter extends RecyclerView.Adapter<BookingListAdapter.
         holder.statusTxt.setText(model.getStatus());
 
         if (model.getStatus().equals("Pending")){
-            holder.statusTxt.setTextColor(Color.RED);
+            holder.statusTxt.setText("Service Request Placed");
+            holder.statusImg.setImageResource(R.drawable.pending);
+            holder.statusTxt.setTextColor(mContext.getColor(R.color.red));
         }else if (model.getStatus().equals("Accepted")){
+            holder.statusTxt.setText("Awaiting Payment");
+            holder.statusImg.setImageResource(R.drawable.payment_await);
+           // holder.statusTxt.setTextColor(mContext.getColor(R.color.red));
             holder.statusTxt.setTextColor(mContext.getColor(R.color.purple_700));
         }else {
-            holder.statusTxt.setTextColor(Color.RED);
+            holder.statusTxt.setText("Service Request Canceled");
+            holder.statusImg.setImageResource(R.drawable.cancel);
+            holder.statusTxt.setTextColor(mContext.getColor(R.color.red));
         }
         DatabaseReference db = Constants.databaseReference().child("Users").child(model.getUserId());
         db.addValueEventListener(new ValueEventListener() {
@@ -98,7 +105,7 @@ public class BookingListAdapter extends RecyclerView.Adapter<BookingListAdapter.
     public class HomeCategoryViewHolder extends RecyclerView.ViewHolder{
 
         public TextView nameTxt,statusTxt,serviceTxt;
-        private ImageView imageView;
+        private ImageView imageView,statusImg;
 
         public HomeCategoryViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -106,6 +113,7 @@ public class BookingListAdapter extends RecyclerView.Adapter<BookingListAdapter.
             statusTxt = itemView.findViewById(R.id.status);
             serviceTxt = itemView.findViewById(R.id.service);
             imageView = itemView.findViewById(R.id.image);
+            statusImg = itemView.findViewById(R.id.imageView);
         }
     }
 }

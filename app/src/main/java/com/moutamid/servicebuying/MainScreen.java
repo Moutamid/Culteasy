@@ -2,8 +2,12 @@ package com.moutamid.servicebuying;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -40,11 +44,8 @@ public class MainScreen extends AppCompatActivity {
                     getSupportFragmentManager().beginTransaction().replace(R.id.container,new BookingFragment()).commit();
                 }
                 if(i == R.id.logout){
-                    Constants.auth().signOut();
-                    Intent intent = new Intent(MainScreen.this, LoginActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                    finish();
+
+                    showLogoutDialog();
                 }
             }
         });
@@ -64,6 +65,38 @@ public class MainScreen extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    private void showLogoutDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MainScreen.this);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.logout_account_layout, null);
+        dialogBuilder.setView(dialogView);
+
+        TextView yesBtn = (TextView) dialogView.findViewById(R.id.yes);
+       // yesBtn.setBackground(ResourcesCompat.getDrawable(requireContext().getResources(),R.drawable.shape_yellow,null));
+        TextView noBtn = (TextView) dialogView.findViewById(R.id.no);
+        //noBtn.setBackground(ResourcesCompat.getDrawable(requireContext().getResources(),R.drawable.shape_red,null));
+        AlertDialog alertDialog = dialogBuilder.create();
+        yesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Constants.auth().signOut();
+                Intent intent = new Intent(MainScreen.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+                alertDialog.dismiss();
+            }
+        });
+        noBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+        alertDialog.show();
 
     }
 

@@ -10,6 +10,7 @@
     <color name="cnb_default_badge_color">#64a547</color>
     <color name="cnb_default_unselected_color">#64a547</color>
 
+    <color name="red">#ff0000</color>
 
     <color name="home">#64a547</color>
     <color name="activity">#673AB7</color>
