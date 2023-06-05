@@ -5,15 +5,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.fxn.stash.Stash;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 import com.moutamid.servicebuying.Notifications.Token;
@@ -64,7 +69,25 @@ public class MainScreen extends AppCompatActivity {
                 // Toast.makeText(DashBoard.this,token,Toast.LENGTH_LONG).show();
             }
         });
+        getServerKey();
+    }
 
+    private void getServerKey() {
+        DatabaseReference notifyDb = Constants.databaseReference().child("Notification");
+        notifyDb.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    String serverKey = snapshot.child("serverKey").getValue().toString();
+                    Stash.put("serverId",serverKey);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
 

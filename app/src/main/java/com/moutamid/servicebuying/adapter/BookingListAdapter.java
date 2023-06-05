@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -54,18 +56,41 @@ public class BookingListAdapter extends RecyclerView.Adapter<BookingListAdapter.
 
         if (model.getStatus().equals("Pending")){
             holder.statusTxt.setText("Service Request Placed");
-            holder.statusImg.setImageResource(R.drawable.pending);
-            holder.statusTxt.setTextColor(mContext.getColor(R.color.red));
+            holder.statusTxt.setTextColor(mContext.getColor(R.color.purple_700));
+            holder.statusImg.setImageResource(R.drawable.confirm);
         }else if (model.getStatus().equals("Accepted")){
             holder.statusTxt.setText("Awaiting Payment");
             holder.statusImg.setImageResource(R.drawable.payment_await);
-           // holder.statusTxt.setTextColor(mContext.getColor(R.color.red));
+            // holder.statusTxt.setTextColor(mContext.getColor(R.color.red));
             holder.statusTxt.setTextColor(mContext.getColor(R.color.purple_700));
-        }else {
-            holder.statusTxt.setText("Service Request Canceled");
-            holder.statusImg.setImageResource(R.drawable.cancel);
-            holder.statusTxt.setTextColor(mContext.getColor(R.color.red));
         }
+        else if (model.getStatus().equals("Payment Confirmed")){
+            holder.statusTxt.setText("Payment Confirmed");
+            holder.statusImg.setImageResource(R.drawable.payment_confirmed);
+            // holder.statusTxt.setTextColor(mContext.getColor(R.color.red));
+            holder.statusTxt.setTextColor(mContext.getColor(R.color.purple_700));
+        }
+        else if (model.getStatus().equals("Service Confirmed")){
+            holder.statusTxt.setText("Service Confirmed");
+            holder.statusImg.setImageResource(R.drawable.confirm);
+            // holder.statusTxt.setTextColor(mContext.getColor(R.color.red));
+            holder.statusTxt.setTextColor(mContext.getColor(R.color.purple_700));
+        }
+
+        else if (model.getStatus().equals("Service Completed")){
+            holder.statusTxt.setText("Service Completed");
+            holder.statusImg.setImageResource(R.drawable.confirm);
+            // holder.statusTxt.setTextColor(mContext.getColor(R.color.red));
+            holder.statusTxt.setTextColor(mContext.getColor(R.color.purple_700));
+        }
+
+        else {
+            holder.statusTxt.setText("Cancel Service Request");
+            holder.statusTxt.setTextColor(mContext.getColor(R.color.red));
+            holder.statusImg.setImageResource(R.drawable.cancel);
+        }
+
+
         DatabaseReference db = Constants.databaseReference().child("Users").child(model.getUserId());
         db.addValueEventListener(new ValueEventListener() {
             @Override
@@ -102,7 +127,7 @@ public class BookingListAdapter extends RecyclerView.Adapter<BookingListAdapter.
         return requestArrayList.size();
     }
 
-    public class HomeCategoryViewHolder extends RecyclerView.ViewHolder{
+    public class HomeCategoryViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
 
         public TextView nameTxt,statusTxt,serviceTxt;
         private ImageView imageView,statusImg;
@@ -114,6 +139,12 @@ public class BookingListAdapter extends RecyclerView.Adapter<BookingListAdapter.
             serviceTxt = itemView.findViewById(R.id.service);
             imageView = itemView.findViewById(R.id.image);
             statusImg = itemView.findViewById(R.id.imageView);
+            itemView.setOnCreateContextMenuListener(this);
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+            menu.add(Menu.NONE, getAdapterPosition(), Menu.NONE, "Cancel Service Request");
         }
     }
 }

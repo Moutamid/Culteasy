@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 
+import com.fxn.stash.Stash;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,6 +31,7 @@ import com.moutamid.servicebuying.utils.Constants;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,6 +46,7 @@ public class ServiceBooking extends AppCompatActivity {
     ProgressDialog pd;
     private String username = "";
     private APIService apiService;
+    private String serverKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +57,7 @@ public class ServiceBooking extends AppCompatActivity {
         name = getIntent().getStringExtra("title");
         id = getIntent().getStringExtra("id");
         binding.name.setText(name);
-
+        serverKey = Stash.getString("serverId");
         apiService = Client.getRetrofit("https://fcm.googleapis.com/").create(APIService.class);
 
         binding.back.setOnClickListener(new View.OnClickListener() {
@@ -179,8 +182,10 @@ public class ServiceBooking extends AppCompatActivity {
                             title,uId);
 
                     Sender sender = new Sender(data, token.getToken());
-
-                    apiService.sendNotification(sender)
+                    Map<String,String> headers = new HashMap<>();
+                    headers.put("Content-Type","application/json");
+                    headers.put("Authorization","Bearer "+serverKey);
+                    apiService.sendNotification(headers,sender)
                             .enqueue(new Callback<MyResponse>() {
                                 @Override
                                 public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {

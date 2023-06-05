@@ -42,6 +42,12 @@ public class SubSelectedCategoryScreen extends AppCompatActivity {
             }
         });
 
+        if (category.getName().equals("Agriculture Service")){
+            binding.labelMessage.setText("Please provide more inputs about your service request (Fram Size ,Crop Name etc ) ");
+        }else {
+            binding.labelMessage.setText("Please provide more inputs about your service request.");
+        }
+
         binding.title.setText(category.getName());
         binding.name.setText(subCategory.getName());
         binding.image.setImageResource(category.getImage());

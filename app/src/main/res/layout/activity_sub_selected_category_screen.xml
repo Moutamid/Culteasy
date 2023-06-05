@@ -110,7 +110,7 @@
                 android:textStyle="bold"
                 android:textSize="14sp"
                 android:layout_marginRight="15dp"
-                android:text="Please provide more inputs about your service request (Fram Size ,Crop Name etc ) " />
+                />
 
             <EditText
                 android:layout_width="match_parent"
